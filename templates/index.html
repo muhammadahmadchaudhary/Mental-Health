@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #001555;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.966);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgb(255, 255, 255);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        .container h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: orangered;
+        }
+        .container p {
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+        .container label {
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .rating-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .rating-group input[type="radio"] {
+            display: none;
+        }
+        .rating-group label {
+            display: block;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            background-color: #fff;
+            transition: all 0.3s ease;
+        }
+        .rating-group input[type="radio"]:checked + label {
+            background-color: #6200ea;
+            color: white;
+            border-color: #6200ea;
+        }
+        .container input[type="submit"], .container button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #6200ea;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .container button:hover, .container input[type="submit"]:hover {
+            background-color: #4b00b3;
+        }
+        .container .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .container .navigation button {
+            background-color: rgb(255, 109, 56);
+            color: white;
+        }
+        .container .navigation button:hover {
+            background-color: #999;
+        }
+        .form-step {
+            display: none;
+        }
+        .form-step.active {
+            display: block;
+        }
+        .error {
+            color: red;
+            margin-top: 5px;
+            display: block;
+            text-align: left;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: green;
+            border-top: 2px solid #ccc;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mental Health Analysis Tool</h1>
+        <p>Add details to predict your mental health condition.</p>
+        <form id="assessment-form">
+            <div class="form-step active">
+                <label for="GEN_005">Perceived health:</label>
+                <br>
+                <div class="rating-group">
+                    <input type="radio" id="GEN_005_1" name="GEN_005" value="1">
+                    <label for="GEN_005_1">Excellent</label>
+                    <input type="radio" id="GEN_005_2" name="GEN_005" value="2">
+                    <label for="GEN_005_2">Very Good</label>
+                    <input type="radio" id="GEN_005_3" name="GEN_005" value="3">
+                    <label for="GEN_005_3">Good</label>
+                    <input type="radio" id="GEN_005_4" name="GEN_005" value="4">
+                    <label for="GEN_005_4">Fair</label>
+                    <input type="radio" id="GEN_005_5" name="GEN_005" value="5">
+                    <label for="GEN_005_5">Poor</label>
+                    <input type="radio" id="GEN_005_7" name="GEN_005" value="7">
+                    <label for="GEN_005_7">Don't know</label>
+                    <input type="radio" id="GEN_005_8" name="GEN_005" value="8">
+                    <label for="GEN_005_8">Refusal</label>
+                    <input type="radio" id="GEN_005_9" name="GEN_005" value="9">
+                    <label for="GEN_005_9">Not stated</label>
+                </div>
+                <div class="error" id="error_GEN_005"></div>
+            </div>
+            <div class="form-step">
+                <label for="GEN_015">Perceived mental health:</label>
+                <br>
+                <div class="rating-group">
+                    <input type="radio" id="GEN_015_1" name="GEN_015" value="1">
+                    <label for="GEN_015_1">Excellent</label>
+                    <input type="radio" id="GEN_015_2" name="GEN_015" value="2">
+                    <label for="GEN_015_2">Very Good</label>
+                    <input type="radio" id="GEN_015_3" name="GEN_015" value="3">
+                    <label for="GEN_015_3">Good</label>
+                    <input type="radio" id="GEN_015_4" name="GEN_015" value="4">
+                    <label for="GEN_015_4">Fair</label>
+                    <input type="radio" id="GEN_015_5" name="GEN_015" value="5">
+                    <label for="GEN_015_5">Poor</label>
+                    <input type="radio" id="GEN_015_7" name="GEN_015" value="7">
+                    <label for="GEN_015_7">Don't know</label>
+                    <input type="radio" id="GEN_015_8" name="GEN_015" value="8">
+                    <label for="GEN_015_8">Refusal</label>
+                    <input type="radio" id="GEN_015_9" name="GEN_015" value="9">
+                    <label for="GEN_015_9">Not stated</label>
+                </div>
+                <div class="error" id="error_GEN_015"></div>
+            </div>
+            <div class="form-step">
+                <label for="GEN_020">Perceived life stress:</label>
+                <br>
+                <div class="rating-group">
+                    <input type="radio" id="GEN_020_1" name="GEN_020" value="1">
+                    <label for="GEN_020_1">Not at all</label>
+                    <input type="radio" id="GEN_020_2" name="GEN_020" value="2">
+                    <label for="GEN_020_2">A bit</label>
+                    <input type="radio" id="GEN_020_3" name="GEN_020" value="3">
+                    <label for="GEN_020_3">Somewhat</label>
+                    <input type="radio" id="GEN_020_4" name="GEN_020" value="4">
+                    <label for="GEN_020_4">Quite a bit</label>
+                    <input type="radio" id="GEN_020_5" name="GEN_020" value="5">
+                    <label for="GEN_020_5">Extremely</label>
+                </div>
+                <div class="error" id="error_GEN_020"></div>
+            </div>
+            <div class="form-step">
+                <label for="GEN_025">Perceived stress at work:</label>
+                <br>
+                <div class="rating-group">
+                    <input type="radio" id="GEN_025_1" name="GEN_025" value="1">
+                    <label for="GEN_025_1">Not at all</label>
+                    <input type="radio" id="GEN_025_2" name="GEN_025" value="2">
+                    <label for="GEN_025_2">A bit</label>
+                    <input type="radio" id="GEN_025_3" name="GEN_025" value="3">
+                    <label for="GEN_025_3">Somewhat</label>
+                    <input type="radio" id="GEN_025_4" name="GEN_025" value="4">
+                    <label for="GEN_025_4">Quite a bit</label>
+                    <input type="radio" id="GEN_025_5" name="GEN_025" value="5">
+                    <label for="GEN_025_5">Extremely</label>
+                </div>
+                <div class="error" id="error_GEN_025"></div>
+            </div>
+            <div class="form-step">
+                <label for="GENDVHDI">Perceived health:</label>
+                <br>
+                <div class="rating-group">
+                    <input type="radio" id="GENDVHDI_1" name="GENDVHDI" value="1">
+                    <label for="GENDVHDI_1">Excellent</label>
+                    <input type="radio" id="GENDVHDI_2" name="GENDVHDI" value="2">
+                    <label for="GENDVHDI_2">Very Good</label>
+                    <input type="radio" id="GENDVHDI_3" name="GENDVHDI" value="3">
+                    <label for="GENDVHDI_3">Good</label>
+                    <input type="radio" id="GENDVHDI_4" name="GENDVHDI" value="4">
+                    <label for="GENDVHDI_4">Fair</label>
+                    <input type="radio" id="GENDVHDI_5" name="GENDVHDI" value="5">
+                    <label for="GENDVHDI_5">Poor</label>
+                    <input type="radio" id="GENDVHDI_7" name="GENDVHDI" value="7">
+                    <label for="GENDVHDI_7">Don't know</label>
+                    <input type="radio" id="GENDVHDI_8" name="GENDVHDI" value="8">
+                    <label for="GENDVHDI_8">Refusal</label>
+                    <input type="radio" id="GENDVHDI_9" name="GENDVHDI" value="9">
+                    <label for="GENDVHDI_9">Not stated</label>
+                </div>
+                <div class="error" id="error_GENDVHDI"></div>
+            </div>
+            <div class="form-step">
+                <label for="GEN_010">Satisfaction with life in general:</label>
+                <br>
+                <div class="rating-group">
+                    <input type="radio" id="GEN_010_1" name="GEN_010" value="1">
+                    <label for="GEN_010_1">Very Satisfied</label>
+                    <input type="radio" id="GEN_010_2" name="GEN_010" value="2">
+                    <label for="GEN_010_2">Satisfied</label>
+                    <input type="radio" id="GEN_010_3" name="GEN_010" value="3">
+                    <label for="GEN_010_3">Neither satisfied nor dissatisfied</label>
+                    <input type="radio" id="GEN_010_4" name="GEN_010" value="4">
+                    <label for="GEN_010_4">Dissatisfied</label>
+                    <input type="radio" id="GEN_010_5" name="GEN_010" value="5">
+                    <label for="GEN_010_5">Very dissatisfied</label>
+                </div>
+                <div class="error" id="error_GEN_010"></div>
+            </div>
+            <div class="form-step">
+                <label for="GEN_030">Sense of belonging to local community:</label>
+                <br>
+                <div class="rating-group">
+                    <input type="radio" id="GEN_030_1" name="GEN_030" value="1">
+                    <label for="GEN_030_1">Very strong</label>
+                    <input type="radio" id="GEN_030_2" name="GEN_030" value="2">
+                    <label for="GEN_030_2">Somewhat strong</label>
+                    <input type="radio" id="GEN_030_3" name="GEN_030" value="3">
+                    <label for="GEN_030_3">Neither strong nor weak</label>
+                    <input type="radio" id="GEN_030_4" name="GEN_030" value="4">
+                    <label for="GEN_030_4">Somewhat weak</label>
+                    <input type="radio" id="GEN_030_5" name="GEN_030" value="5">
+                    <label for="GEN_030_5">Very weak</label>
+                </div>
+                <div class="error" id="error_GEN_030"></div>
+            </div>
+            <div class="form-step">
+                <label for="ALC_015">Alcohol consumed in past 12 mo:</label>
+                <br>
+                <div class="rating-group">
+                    <input type="radio" id="ALC_015_1" name="ALC_015" value="1">
+                    <label for="ALC_015_1">Less than once a month</label>
+                    <input type="radio" id="ALC_015_2" name="ALC_015" value="2">
+                    <label for="ALC_015_2">Once a month</label>
+                    <input type="radio" id="ALC_015_3" name="ALC_015" value="3">
+                    <label for="ALC_015_3">2 to 3 times a month</label>
+                    <input type="radio" id="ALC_015_4" name="ALC_015" value="4">
+                    <label for="ALC_015_4">Once a week</label>
+                    <input type="radio" id="ALC_015_5" name="ALC_015" value="5">
+                    <label for="ALC_015_5">2 to 3 times a week</label>
+                    <input type="radio" id="ALC_015_6" name="ALC_015" value="6">
+                    <label for="ALC_015_6">4 to 6 times a week</label>
+                    <input type="radio" id="ALC_015_7" name="ALC_015" value="7">
+                    <label for="ALC_015_7">Every day</label>
+                </div>
+                <div class="error" id="error_ALC_015"></div>
+            </div>
+            <div class="form-step">
+                <label for="ALC_020">Drank 4+ drinks one occasion:</label>
+                <br>
+                <div class="rating-group">
+                    <input type="radio" id="ALC_020_1" name="ALC_020" value="1">
+                    <label for="ALC_020_1">Never</label>
+                    <input type="radio" id="ALC_020_2" name="ALC_020" value="2">
+                    <label for="ALC_020_2">Less than once a month</label>
+                    <input type="radio" id="ALC_020_3" name="ALC_020" value="3">
+                    <label for="ALC_020_3">Once a month</label>
+                    <input type="radio" id="ALC_020_4" name="ALC_020" value="4">
+                    <label for="ALC_020_4">2 to 3 times a month</label>
+                    <input type="radio" id="ALC_020_5" name="ALC_020" value="5">
+                    <label for="ALC_020_5">Once a week</label>
+                    <input type="radio" id="ALC_020_6" name="ALC_020" value="6">
+                    <label for="ALC_020_6">More than once a week</label>
+                </div>
+                <div class="error" id="error_ALC_020"></div>
+            </div>
+            <div class="form-step">
+                <label for="ALW_005">Drank alcohol - past week:</label>
+                <br>
+                <div class="rating-group">
+                    <input type="radio" id="ALW_005_1" name="ALW_005" value="1">
+                    <label for="ALW_005_1">Yes</label>
+                    <input type="radio" id="ALW_005_2" name="ALW_005" value="2">
+                    <label for="ALW_005_2">No</label>
+                </div>
+                <div class="error" id="error_ALW_005"></div>
+            </div>
+            <div class="form-step">
+                <label for="ALWDVWKY">Weekly consumption of Alcohol:</label>
+                <br>
+                <div class="rating-group">
+                    <input type="radio" id="ALWDVWKY_1" name="ALWDVWKY" value="1">
+                    <label for="ALWDVWKY_1">Has not had a drink in past week</label>
+                    <input type="radio" id="ALWDVWKY_2" name="ALWDVWKY" value="2">
+                    <label for="ALWDVWKY_2">had a drink in past week</label>
+                </div>
+                <div class="error" id="error_ALWDVWKY"></div>
+            </div>
+            <div class="form-step">
+                <label for="ALWDVDLY">Average daily alcohol consumption:</label>
+                <br>
+                <div class="rating-group">
+                    <input type="radio" id="ALWDVDLY_1" name="ALWDVDLY" value="1">
+                    <label for="ALWDVDLY_1">Never</label>
+                    <input type="radio" id="ALWDVDLY_2" name="ALWDVDLY" value="2">
+                    <label for="ALWDVDLY_2">Less than one</label>
+                </div>
+                <div class="error" id="error_ALWDVDLY"></div>
+            </div>
+            <div class="form-step">
+                <label for="ALWDVLTR">Increased long term risk due to drinking:</label>
+                <br>
+                <div class="rating-group">
+                    <input type="radio" id="ALWDVLTR_1" name="ALWDVLTR" value="1">
+                    <label for="ALWDVLTR_1">Increased long term health risk due to drinking</label>
+                    <input type="radio" id="ALWDVLTR_2" name="ALWDVLTR" value="2">
+                    <label for="ALWDVLTR_2">No increased long term heath risk due to drinking</label>
+                </div>
+                <div class="error" id="error_ALWDVLTR"></div>
+            </div>
+            <div class="form-step">
+                <label for="ALWDVSTR">Increased short term risks due to drinking:</label>
+                <br>
+                <div class="rating-group">
+                    <input type="radio" id="ALWDVSTR_1" name="ALWDVSTR" value="1">
+                    <label for="ALWDVSTR_1">Increased short term health risks due to drinking</label>
+                    <input type="radio" id="ALWDVSTR_2" name="ALWDVSTR" value="2">
+                    <label for="ALWDVSTR_2">No increased short term risk due to drinking</label>
+                </div>
+                <div class="error" id="error_ALWDVSTR"></div>
+            </div>
+            <div class="form-step">
+                <label for="DRGDVYA">Any illicit drug use - 12 mo:</label>
+                <br>
+                <div class="rating-group">
+                    <input type="radio" id="DRGDVYA_1" name="DRGDVYA" value="1">
+                    <label for="DRGDVYA_1">Has used at least one of the drugs</label>
+                    <input type="radio" id="DRGDVYA_2" name="DRGDVYA" value="2">
+                    <label for="DRGDVYA_2">Has not used any of the drugs</label>
+                </div>
+                <div class="error" id="error_DRGDVYA"></div>
+            </div>
+            <div class="form-step">
+                <label for="DHH_SEX">Sex at birth:</label>
+                <br>
+                <div class="rating-group">
+                    <input type="radio" id="DHH_SEX_1" name="DHH_SEX" value="1">
+                    <label for="DHH_SEX_1">Male</label>
+                    <input type="radio" id="DHH_SEX_2" name="DHH_SEX" value="2">
+                    <label for="DHH_SEX_2">Female</label>
+                </div>
+                <div class="error" id="error_DHH_SEX"></div>
+            </div>
+            <div class="form-step">
+                <label for="DHHGAGE">Age - Grouped:</label>
+                <br>
+                <div class="rating-group">
+                    <input type="radio" id="DHHGAGE_1" name="DHHGAGE" value="1">
+                    <label for="DHHGAGE_1">12 to 17 years</label>
+                    <input type="radio" id="DHHGAGE_2" name="DHHGAGE" value="2">
+                    <label for="DHHGAGE_2">18 to 34 years</label>
+                    <input type="radio" id="DHHGAGE_3" name="DHHGAGE" value="3">
+                    <label for="DHHGAGE_3">35 to 49 years</label>
+                    <input type="radio" id="DHHGAGE_4" name="DHHGAGE" value="4">
+                    <label for="DHHGAGE_4">50 to 64 years</label>
+                    <input type="radio" id="DHHGAGE_5" name="DHHGAGE" value="5">
+                    <label for="DHHGAGE_5">65 and older</label>
+                </div>
+                <div class="error" id="error_DHHGAGE"></div>
+            </div>
+            <div class="form-step">
+                <label for="DHHGMS">Marital status:</label>
+                <br>
+                <div class="rating-group">
+                    <input type="radio" id="DHHGMS_1" name="DHHGMS" value="1">
+                    <label for="DHHGMS_1">Married/Common-law</label>
+                    <input type="radio" id="DHHGMS_2" name="DHHGMS" value="2">
+                    <label for="DHHGMS_2">Widowed/Separated/Single</label>
+                </div>
+                <div class="error" id="error_DHHGMS"></div>
+            </div>
+            <div class="form-step">
+                <label for="DHHDGHSZ">Household size:</label>
+                <br>
+                <div class="rating-group">
+                    <input type="radio" id="DHHDGHSZ_1" name="DHHDGHSZ" value="1">
+                    <label for="DHHDGHSZ_1">Lives alone</label>
+                    <input type="radio" id="DHHDGHSZ_2" name="DHHDGHSZ" value="2">
+                    <label for="DHHDGHSZ_2">Household size 2 or more</label>
+                </div>
+                <div class="error" id="error_DHHDGHSZ"></div>
+            </div>
+            <div class="form-step">
+                <label for="DOALW">Alcohol use - past week:</label>
+                <br>
+                <div class="rating-group">
+                    <input type="radio" id="DOALW_1" name="DOALW" value="1">
+                    <label for="DOALW_1">Yes</label>
+                    <input type="radio" id="DOALW_2" name="DOALW" value="2">
+                    <label for="DOALW_2">No</label>
+                </div>
+                <div class="error" id="error_DOALW"></div>
+            </div>
+            <div class="navigation">
+                <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+            </div>
+            <input type="submit" value="Predict" style="display:none;">
+        </form>
+        <div id="result"></div>
+    </div>
+    <script>
+        let currentStep = 0;
+        showStep(currentStep);
+
+        function showStep(step) {
+            const steps = document.getElementsByClassName("form-step");
+            steps[step].classList.add("active");
+
+            if (step === 0) {
+                document.getElementById("prevBtn").style.display = "none";
+            } else {
+                document.getElementById("prevBtn").style.display = "inline";
+            }
+
+            if (step === (steps.length - 1)) {
+                document.getElementById("nextBtn").style.display = "none";
+                document.querySelector('input[type="submit"]').style.display = "inline";
+            } else {
+                document.getElementById("nextBtn").style.display = "inline";
+                document.querySelector('input[type="submit"]').style.display = "none";
+            }
+        }
+
+        function nextPrev(n) {
+            const steps = document.getElementsByClassName("form-step");
+            if (n === 1 && !validateForm()) return false;
+
+            steps[currentStep].classList.remove("active");
+            currentStep += n;
+
+            if (currentStep >= steps.length) {
+                document.getElementById("assessment-form").submit();
+                return false;
+            }
+
+            showStep(currentStep);
+        }
+
+        function validateForm() {
+            const step = document.getElementsByClassName("form-step")[currentStep];
+            const input = step.querySelector('input[type="radio"]:checked, input[type="text"]');
+            const errorDiv = step.getElementsByClassName("error")[0];
+            if (!input || input.value.trim() === "") {
+                errorDiv.textContent = "This field is required";
+                return false;
+            }
+            errorDiv.textContent = "";
+            return true;
+        }
+
+        document.getElementById('assessment-form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const form = event.target;
+            const formData = new FormData(form);
+            const resultDiv = document.getElementById('result');
+
+            resultDiv.innerText = '';
+
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                resultDiv.innerHTML = `<div class="result-box">Predicted Mental Health Condition: <span>${result.prediction}</span></div>`;
+            } catch (error) {
+                resultDiv.innerText = 'An error occurred. Please try again.';
+            }
+        });
+    </script>
+</body>
+</html>
